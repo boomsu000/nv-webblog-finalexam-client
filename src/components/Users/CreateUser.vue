@@ -1,19 +1,19 @@
 <template>
   <div>
-    <h1>Create Users</h1>
+    <h1>Create วิชา</h1>
     <form v-on:submit.prevent="createUser">
-      <p>name: <input type="text" v-model="user.name" /></p>
-      <p>lastname: <input type="text" v-model="user.lastname" /></p>
-      <p>email: <input type="text" v-model="user.email" /></p>
-      <p>password: <input type="text" v-model="user.password" /></p>
+      <p>วิชา: <input type="text" v-model="course.title" /></p>
+      <p>อาจาร: <input type="text" v-model="course.instructor" /></p>
+      <p>คำอธิบาย: <input type="text" v-model="course.description" /></p>
+      <p>นักเรียนทั้งหมด: <input type="text" v-model="course.total_student" /></p>
       <p><button type="submit">create user</button></p>
     </form>
     <hr />
     <div>
-      <p>name: {{ user.name }}</p>
-      <p>lastname: {{ user.lastname }}</p>
-      <p>email: {{ user.email }}</p>
-      <p>password: {{ user.password }}</p>
+      <p>วิชา: {{ course.title }}</p>
+      <p>อาจาร: {{ course.instructor }}</p>
+      <p>คำอธิบาย: {{ course.description }}</p>
+      <p>นักเรียนทั้งหมด: {{ course.total_student }}</p>
     </div>
   </div>
 </template>
@@ -23,11 +23,11 @@ import UsersService from "@/services/UserService";
 export default {
   data() {
     return {
-      user: {
-        name: "",
-        lastname: "",
-        email: "",
-        password: "",
+      course: {
+        title: "",
+        instructor: "",
+        description : "",
+        total_student: "",
         status: "active"
       }
     };
@@ -35,9 +35,9 @@ export default {
   methods: {
     async createUser() {
       try {
-        await UsersService.post(this.user);
+        await UsersService.post(this.course);
         this.$router.push({
-          name: "users"
+          name: "courses"
         });
       } catch (err) {
         console.log(err);

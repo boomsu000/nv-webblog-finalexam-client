@@ -1,26 +1,41 @@
 <template>
   <div>
-    <h1>Show User</h1>
-    <p>id: {{ user.id }}</p>
-    <p>ชื่อ-นามสกุล: {{ user.name }} - {{ user.lastname }}</p>
-    <p>email: {{ user.email }}</p>
-    <p>password: {{ user.password }}</p>
+    <h1>Get User By Id</h1>
+    <div>วิชา: {{ course.title }}</div>
+    <div>อาจาร: {{ course.instructor }}</div>
+    <div>คำอธิบาย: {{ course.description}}</div>
+    <div>นักเรียน: {{ course.total_student }}</div>
+    <div>status: {{ course.status}}</div>
+    <div>type: {{ course.type  }}</div>
+    <div><button @click="navigateTo('/course/edit/'+course.id)">edit</button></div>
+    <div><button @click="navigateTo('/courses')">กลับ</button></div>
   </div>
 </template>
+
 <script>
 import UserService from "@/services/UserService";
 
 export default {
   data() {
     return {
-      user: null
+      course: null
     };
   },
+  methods: {
+    navigateTo(route) {
+      this.$router.push(route);
+    }
+  },
   async created() {
-    let userId = this.$route.params.userId;
-    this.user = (await UserService.show(userId)).data
-    console.log(this.userId)
+    try {
+      let courseId = this.$route.params.courseId;
+      this.course = (await UserService.show(courseId)).data;
+      console.log(this.course);
+    } catch (err) {
+      console.log(err);
+    }
   }
 };
 </script>
-<style scoped></style>
+
+<style></style>
